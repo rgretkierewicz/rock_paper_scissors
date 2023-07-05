@@ -2,12 +2,13 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title> Rock Paper Scissors Game</title>
+  <title>Page Title</title>
 </head>
 <body>
   <script>
     let computerSelection;
     let playerSelection;
+    const rpsArray = ["rock", "paper", "scissors"];
 
     function playRound(playerSelection, computerSelection) {
       if (computerSelection === playerSelection) {
@@ -31,11 +32,11 @@
     function game() {
       let computerScore = 0;
       let playerScore = 0;
+      let ties = 0;
 
       for (let i = 0; i < 5; i++) {
         computerSelection = getComputerChoice();
         playerSelection = getPlayerChoice();
-
 
         let roundScore = playRound(playerSelection, computerSelection);
         if (roundScore < 0) {
@@ -44,10 +45,12 @@
         else if (roundScore > 0) {
           playerScore++;
         }
+        else {
+          ties++;
+        }
       }
 
-      alert("Computer score = " + computerScore + ". " + "Player score = " + playerScore + ".");
-
+      alert("Computer score = " + computerScore + ". " + "Player score = " + playerScore + ". " + "Tie games = " + ties + ".");
       if (computerScore > playerScore) {
         alert("Computer Wins!");
       }
@@ -57,34 +60,24 @@
       else {
         alert("You Tie!");
       }
-
     }
 
     getPlayerChoice = () => {
       playerSelection = prompt("Enter your selection of rock, paper, or scissors for this round!");
       playerSelection = playerSelection.toLowerCase();
 
-        if (playerSelection === "rock" || playerSelection === "paper" || playerSelection === "scissors") {
-          return playerSelection;
-        }
-        else {
-          alert("Invalid Entry. Please enter rock, paper, or scissors.");
-          getPlayerChoice();
-        }
-
+      if (playerSelection === "rock" || playerSelection === "paper" || playerSelection === "scissors") {
+        return playerSelection;
+      }
+      else {
+        alert("Invalid Entry. Please enter rock, paper, or scissors.");
+        getPlayerChoice();
+      }
     };
 
     let getComputerChoice = () => {
-      let r = Math.floor(Math.random() * 3) + 1;
-      if (r == 1) {
-        return "rock";
-      }
-      else if (r == 2) {
-        return "paper";
-      }
-      else if (r == 3) {
-        return "scissors";
-      }
+      let r = Math.floor(Math.random() * 2);
+      return rpsArray[r];
     };
 
     game();
